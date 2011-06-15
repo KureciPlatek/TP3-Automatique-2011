@@ -1,12 +1,12 @@
 Model {
-  Name			  "RejetPertConst"
+  Name			  "TP3repSinPlusUn"
   Version		  7.2
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.2"
+    ComputedModelVersion    "1.7"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -18,15 +18,15 @@ Model {
   DataTypeOverride	  "UseLocalSettings"
   MinMaxOverflowLogging	  "UseLocalSettings"
   MinMaxOverflowArchiveMode "Overwrite"
-  Created		  "Wed Jun  8 16:17:36 2011"
+  Created		  "Wed Jun 15 18:46:48 2011"
   Creator		  "jeremiegallee"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "jeremiegallee"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jun  8 17:01:12 2011"
+  LastModifiedDate	  "Wed Jun 15 19:42:56 2011"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:2>"
+  ModelVersionFormat	  "1.%<AutoIncrement:7>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -545,6 +545,26 @@ Model {
   }
   BlockParameterDefaults {
     Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "fixdt(1,16,0)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Inherit from 'Constant value'"
+      LockScale		      off
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+    Block {
+      BlockType		      Derivative
+      LinearizePole	      "inf"
+    }
+    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -607,6 +627,19 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Sin
+      SineType		      "Time based"
+      TimeSource	      "Use simulation time"
+      Amplitude		      "1"
+      Bias		      "0"
+      Frequency		      "1"
+      Phase		      "0"
+      Samples		      "10"
+      Offset		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+    }
+    Block {
       BlockType		      StateSpace
       A			      "1"
       B			      "1"
@@ -645,10 +678,27 @@ Model {
       SaturateOnIntegerOverflow	on
       SampleTime	      "-1"
     }
+    Block {
+      BlockType		      TransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 2 1]"
+      AbsoluteTolerance	      "auto"
+      ContinuousStateAttributes	"''"
+      Realization	      "auto"
+    }
+    Block {
+      BlockType		      TransportDelay
+      DelayTime		      "1"
+      InitialOutput	      "0"
+      BufferSize	      "1024"
+      FixedBuffer	      off
+      TransDelayFeedthrough   off
+      PadeOrder		      "0"
+    }
   }
   System {
-    Name		    "RejetPertConst"
-    Location		    [661, 50, 1406, 611]
+    Name		    "TP3repSinPlusUn"
+    Location		    [203, 211, 944, 719]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -663,9 +713,37 @@ Model {
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     Block {
+      BlockType		      Constant
+      Name		      "Constant"
+      Position		      [125, 100, 155, 130]
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Derivative
+      Name		      "Derivative"
+      Position		      [385, 415, 415, 445]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+    }
+    Block {
+      BlockType		      Derivative
+      Name		      "Derivative1"
+      Position		      [330, 415, 360, 445]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+    }
+    Block {
+      BlockType		      Derivative
+      Name		      "Derivative2"
+      Position		      [330, 365, 360, 395]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+    }
+    Block {
       BlockType		      Gain
       Name		      "Gain"
-      Position		      [165, 210, 195, 240]
+      Position		      [140, 150, 170, 180]
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "sfix(16)"
       ParameterScaling	      "2^0"
@@ -679,7 +757,7 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "Gain1"
-      Position		      [290, 300, 320, 330]
+      Position		      [225, 240, 255, 270]
       Orientation	      "left"
       NamePlacement	      "alternate"
       Gain		      "Ka"
@@ -698,26 +776,34 @@ Model {
       BlockType		      Integrator
       Name		      "Integrator"
       Ports		      [1, 1]
-      Position		      [420, 325, 450, 355]
+      Position		      [340, 305, 370, 335]
       Orientation	      "left"
       NamePlacement	      "alternate"
     }
     Block {
       BlockType		      Mux
       Name		      "Mux"
-      Ports		      [2, 1]
-      Position		      [360, 296, 365, 334]
+      Ports		      [4, 1]
+      Position		      [285, 236, 290, 274]
       Orientation	      "left"
       NamePlacement	      "alternate"
       ShowName		      off
-      Inputs		      "2"
       DisplayOption	      "bar"
     }
     Block {
       BlockType		      Mux
-      Name		      "Mux1"
+      Name		      "Mux2"
+      Ports		      [3, 1]
+      Position		      [525, 136, 530, 174]
+      ShowName		      off
+      Inputs		      "3"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux3"
       Ports		      [2, 1]
-      Position		      [315, 196, 320, 234]
+      Position		      [175, 51, 180, 89]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -726,10 +812,10 @@ Model {
       BlockType		      Scope
       Name		      "Scope"
       Ports		      [1]
-      Position		      [555, 209, 585, 241]
+      Position		      [570, 149, 600, 181]
       Floating		      off
-      Location		      [1, 71, 1441, 835]
-      Open		      off
+      Location		      [5, 71, 1441, 835]
+      Open		      on
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -739,9 +825,17 @@ Model {
       SampleTime	      "0"
     }
     Block {
+      BlockType		      Sin
+      Name		      "Sine Wave"
+      Ports		      [0, 1]
+      Position		      [125, 30, 155, 60]
+      Frequency		      "2"
+      SampleTime	      "0"
+    }
+    Block {
       BlockType		      StateSpace
       Name		      "State-Space"
-      Position		      [380, 208, 440, 242]
+      Position		      [355, 148, 415, 182]
       A			      "a"
       B			      "BE"
       C			      "c"
@@ -749,22 +843,15 @@ Model {
     }
     Block {
       BlockType		      Step
-      Name		      "Step"
-      Position		      [210, 150, 240, 180]
-      Before		      "3"
-      SampleTime	      "0"
-    }
-    Block {
-      BlockType		      Step
       Name		      "Step1"
-      Position		      [95, 210, 125, 240]
+      Position		      [70, 150, 100, 180]
       SampleTime	      "0"
     }
     Block {
       BlockType		      Sum
       Name		      "Sum"
       Ports		      [2, 1]
-      Position		      [275, 215, 295, 235]
+      Position		      [250, 155, 270, 175]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "++|"
@@ -779,7 +866,7 @@ Model {
       BlockType		      Sum
       Name		      "Sum1"
       Ports		      [2, 1]
-      Position		      [490, 330, 510, 350]
+      Position		      [465, 310, 485, 330]
       Orientation	      "left"
       NamePlacement	      "alternate"
       ShowName		      off
@@ -796,7 +883,7 @@ Model {
       BlockType		      Sum
       Name		      "Sum2"
       Ports		      [2, 1]
-      Position		      [225, 215, 245, 235]
+      Position		      [200, 155, 220, 175]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
@@ -806,6 +893,20 @@ Model {
       OutScaling	      "2^0"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      TransferFcn
+      Name		      "Transfer Fcn"
+      Position		      [385, 302, 445, 338]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      Denominator	      "[1 0 w*w]"
+    }
+    Block {
+      BlockType		      TransportDelay
+      Name		      "Transport\nDelay"
+      Position		      [200, 55, 230, 85]
+      DelayTime		      "3"
     }
     Line {
       SrcBlock		      "Gain"
@@ -824,34 +925,23 @@ Model {
       SrcPort		      1
       Points		      [30, 0]
       Branch {
-	Points			[0, 80]
+	Labels			[2, 0]
+	Points			[0, 75]
 	DstBlock		"Mux"
 	DstPort			1
       }
       Branch {
-	Points			[50, 0]
+	Points			[55, 0]
 	Branch {
-	  DstBlock		  "Scope"
-	  DstPort		  1
-	}
-	Branch {
+	  Points		  [0, 155]
 	  DstBlock		  "Sum1"
 	  DstPort		  1
 	}
+	Branch {
+	  DstBlock		  "Mux2"
+	  DstPort		  3
+	}
       }
-    }
-    Line {
-      SrcBlock		      "Sum1"
-      SrcPort		      1
-      DstBlock		      "Integrator"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Integrator"
-      SrcPort		      1
-      Points		      [-15, 0; 0, -15]
-      DstBlock		      "Mux"
-      DstPort		      2
     }
     Line {
       SrcBlock		      "Mux"
@@ -862,7 +952,7 @@ Model {
     Line {
       SrcBlock		      "Gain1"
       SrcPort		      1
-      Points		      [-50, 0]
+      Points		      [-10, 0]
       DstBlock		      "Sum2"
       DstPort		      2
     }
@@ -875,37 +965,114 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, 140]
+	Points			[0, 295; 360, 0]
 	DstBlock		"Sum1"
 	DstPort			2
       }
-    }
-    Line {
-      SrcBlock		      "Step"
-      SrcPort		      1
-      Points		      [40, 0; 0, 40]
       Branch {
-	Points			[0, -40; 15, 0]
-	DstBlock		"Mux1"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"Sum"
+	Points			[0, -145; 385, 0; 0, 125]
+	DstBlock		"Mux2"
 	DstPort			1
       }
     }
     Line {
       SrcBlock		      "Sum"
       SrcPort		      1
-      DstBlock		      "Mux1"
+      DstBlock		      "State-Space"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum1"
+      SrcPort		      1
+      DstBlock		      "Transfer Fcn"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Transfer Fcn"
+      SrcPort		      1
+      DstBlock		      "Integrator"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Mux2"
+      SrcPort		      1
+      Points		      [0, 10]
+      DstBlock		      "Scope"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Transport\nDelay"
+      SrcPort		      1
+      Points		      [25, 0; 0, 75]
+      Branch {
+	DstBlock		"Sum"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -75; 190, 0; 0, 85]
+	DstBlock		"Mux2"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Derivative"
+      SrcPort		      1
+      DstBlock		      "Derivative1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Derivative2"
+      SrcPort		      1
+      Points		      [-10, 0; 0, -120]
+      DstBlock		      "Mux"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Derivative1"
+      SrcPort		      1
+      Points		      [-20, 0; 0, -140]
+      DstBlock		      "Mux"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Sine Wave"
+      SrcPort		      1
+      DstBlock		      "Mux3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Mux3"
+      SrcPort		      1
+      DstBlock		      "Transport\nDelay"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Constant"
+      SrcPort		      1
+      DstBlock		      "Mux3"
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Mux1"
+      SrcBlock		      "Integrator"
       SrcPort		      1
-      Points		      [20, 0; 0, 10]
-      DstBlock		      "State-Space"
-      DstPort		      1
+      Points		      [-10, 0]
+      Branch {
+	Points			[0, -70]
+	DstBlock		"Mux"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 25; 50, 0]
+	Branch {
+	  DstBlock		  "Derivative2"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [55, 0]
+	  DstBlock		  "Derivative"
+	  DstPort		  1
+	}
+      }
     }
   }
 }

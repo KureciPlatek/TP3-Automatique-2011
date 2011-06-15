@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1"
+    ComputedModelVersion    "1.2"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -24,9 +24,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "jeremiegallee"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jun  8 17:07:40 2011"
+  LastModifiedDate	  "Wed Jun 15 17:12:08 2011"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:1>"
+  ModelVersionFormat	  "1.%<AutoIncrement:2>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -645,7 +645,7 @@ Model {
   }
   System {
     Name		    "simulTP3RepRamp"
-    Location		    [70, 222, 1195, 785]
+    Location		    [70, 222, 1319, 816]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -719,6 +719,15 @@ Model {
       DisplayOption	      "bar"
     }
     Block {
+      BlockType		      Mux
+      Name		      "Mux2"
+      Ports		      [3, 1]
+      Position		      [840, 161, 845, 199]
+      ShowName		      off
+      Inputs		      "3"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      Reference
       Name		      "Ramp"
       Ports		      [0, 1]
@@ -734,7 +743,7 @@ Model {
       RTWMemSecDataInternal   "Inherit from model"
       RTWMemSecDataParameters "Inherit from model"
       slope		      "1"
-      start		      "0"
+      start		      "3"
       X0		      "0"
       VectorParams1D	      on
     }
@@ -742,9 +751,9 @@ Model {
       BlockType		      Scope
       Name		      "Scope"
       Ports		      [1]
-      Position		      [845, 174, 875, 206]
+      Position		      [885, 174, 915, 206]
       Floating		      off
-      Location		      [1, 71, 1441, 835]
+      Location		      [5, 71, 584, 467]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -847,14 +856,15 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[50, 0]
-	Branch {
-	  DstBlock		  "Scope"
-	  DstPort		  1
-	}
+	Points			[50, 0; 0, 10]
 	Branch {
 	  DstBlock		  "Sum1"
 	  DstPort		  1
+	}
+	Branch {
+	  Points		  [10, 0]
+	  DstBlock		  "Mux2"
+	  DstPort		  3
 	}
       }
     }
@@ -884,19 +894,31 @@ Model {
 	DstBlock		"Sum1"
 	DstPort			2
       }
+      Branch {
+	Points			[0, -100; 385, 0; 0, 80]
+	DstBlock		"Mux2"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Ramp"
       SrcPort		      1
       Points		      [45, 0; 0, 40]
       Branch {
-	Points			[0, -40; 15, 0]
-	DstBlock		"Mux1"
+	DstBlock		"Sum"
 	DstPort			1
       }
       Branch {
-	DstBlock		"Sum"
-	DstPort			1
+	Points			[0, -40; 15, 0]
+	Branch {
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [175, 0; 0, 50]
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
       }
     }
     Line {
@@ -938,6 +960,13 @@ Model {
       Points		      [-10, 0; 0, -40; 55, 0]
       DstBlock		      "Mux"
       DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Mux2"
+      SrcPort		      1
+      Points		      [0, 10]
+      DstBlock		      "Scope"
+      DstPort		      1
     }
   }
 }

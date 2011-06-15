@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-%% TP3 1.3 Rejet de perturbations
+%% TP3 1.3 Rejet de perturbations echelon
 
 % les matrices:
 
