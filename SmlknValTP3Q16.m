@@ -36,11 +36,13 @@ title('Fonction de sensibilite')
 N = 3;
 
 for h = 1:N
-    Bbf =Ba*h + [0;0;0;-1];    
-    [num1,den1] = ss2tf(Aa-Ba*Ka,Bbf,Ca,0);
+    Ba_bf =Ba*h + [0;0;0;-1];    
+    [num1,den1] = ss2tf(Aa-Ba*Ka,Ba_bf,Ca,0);
     SYS2 = tf(num1,den1)
     figure(2)
     hold on
     bode(SYS2)
     grid on
 end
+legend('h = 1','h = 2','h = 3')
+title('Fonction de tranfert en boucle fermée')

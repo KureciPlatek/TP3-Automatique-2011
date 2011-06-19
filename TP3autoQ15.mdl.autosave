@@ -1,12 +1,12 @@
 Model {
-  Name			  "TP3autoQ14"
+  Name			  "TP3autoQ15"
   Version		  7.2
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.3"
+    ComputedModelVersion    "1.2"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -18,15 +18,15 @@ Model {
   DataTypeOverride	  "UseLocalSettings"
   MinMaxOverflowLogging	  "UseLocalSettings"
   MinMaxOverflowArchiveMode "Overwrite"
-  Created		  "Wed Jun  8 17:03:06 2011"
+  Created		  "Wed Jun 15 16:52:59 2011"
   Creator		  "jeremiegallee"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "jeremiegallee"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Jun 19 18:31:42 2011"
+  LastModifiedDate	  "Wed Jun 15 17:37:39 2011"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:3>"
+  ModelVersionFormat	  "1.%<AutoIncrement:2>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -596,6 +596,19 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Sin
+      SineType		      "Time based"
+      TimeSource	      "Use simulation time"
+      Amplitude		      "1"
+      Bias		      "0"
+      Frequency		      "1"
+      Phase		      "0"
+      Samples		      "10"
+      Offset		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+    }
+    Block {
       BlockType		      StateSpace
       A			      "1"
       B			      "1"
@@ -642,10 +655,19 @@ Model {
       ContinuousStateAttributes	"''"
       Realization	      "auto"
     }
+    Block {
+      BlockType		      TransportDelay
+      DelayTime		      "1"
+      InitialOutput	      "0"
+      BufferSize	      "1024"
+      FixedBuffer	      off
+      TransDelayFeedthrough   off
+      PadeOrder		      "0"
+    }
   }
   System {
-    Name		    "TP3autoQ14"
-    Location		    [1710, 118, 2537, 672]
+    Name		    "TP3autoQ15"
+    Location		    [1906, 177, 2533, 596]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -657,19 +679,20 @@ Model {
     TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     Block {
       BlockType		      Derivative
       Name		      "Derivative"
-      Position		      [305, 295, 335, 325]
+      Position		      [315, 275, 345, 305]
       Orientation	      "left"
       NamePlacement	      "alternate"
     }
     Block {
       BlockType		      Gain
       Name		      "Gain"
-      Position		      [130, 130, 160, 160]
+      Position		      [140, 110, 170, 140]
+      Gain		      "9"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "sfix(16)"
       ParameterScaling	      "2^0"
@@ -683,7 +706,7 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "Gain1"
-      Position		      [255, 220, 285, 250]
+      Position		      [265, 200, 295, 230]
       Orientation	      "left"
       NamePlacement	      "alternate"
       Gain		      "Ka"
@@ -702,7 +725,7 @@ Model {
       BlockType		      Mux
       Name		      "Mux"
       Ports		      [3, 1]
-      Position		      [325, 216, 330, 254]
+      Position		      [335, 196, 340, 234]
       Orientation	      "left"
       NamePlacement	      "alternate"
       ShowName		      off
@@ -713,7 +736,7 @@ Model {
       BlockType		      Mux
       Name		      "Mux1"
       Ports		      [2, 1]
-      Position		      [280, 116, 285, 154]
+      Position		      [290, 96, 295, 134]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -722,38 +745,18 @@ Model {
       BlockType		      Mux
       Name		      "Mux2"
       Ports		      [3, 1]
-      Position		      [515, 116, 520, 154]
+      Position		      [525, 96, 530, 134]
       ShowName		      off
       Inputs		      "3"
       DisplayOption	      "bar"
     }
     Block {
-      BlockType		      Reference
-      Name		      "Ramp"
-      Ports		      [0, 1]
-      Position		      [170, 70, 200, 100]
-      SourceBlock	      "simulink/Sources/Ramp"
-      SourceType	      "Ramp"
-      ShowPortLabels	      "FromPortIcon"
-      SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      slope		      "1"
-      start		      "3"
-      X0		      "0"
-      VectorParams1D	      on
-    }
-    Block {
       BlockType		      Scope
       Name		      "Scope"
       Ports		      [1]
-      Position		      [560, 129, 590, 161]
+      Position		      [570, 109, 600, 141]
       Floating		      off
-      Location		      [5, 71, 584, 467]
+      Location		      [5, 71, 1441, 835]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -764,9 +767,18 @@ Model {
       SampleTime	      "0"
     }
     Block {
+      BlockType		      Sin
+      Name		      "Sine Wave"
+      Ports		      [0, 1]
+      Position		      [140, 50, 170, 80]
+      Amplitude		      "2"
+      Frequency		      "2"
+      SampleTime	      "0"
+    }
+    Block {
       BlockType		      StateSpace
       Name		      "State-Space"
-      Position		      [345, 128, 405, 162]
+      Position		      [355, 108, 415, 142]
       A			      "a"
       B			      "BE"
       C			      "c"
@@ -775,14 +787,14 @@ Model {
     Block {
       BlockType		      Step
       Name		      "Step1"
-      Position		      [60, 130, 90, 160]
+      Position		      [70, 110, 100, 140]
       SampleTime	      "0"
     }
     Block {
       BlockType		      Sum
       Name		      "Sum"
       Ports		      [2, 1]
-      Position		      [240, 135, 260, 155]
+      Position		      [250, 115, 270, 135]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "++|"
@@ -797,7 +809,7 @@ Model {
       BlockType		      Sum
       Name		      "Sum1"
       Ports		      [2, 1]
-      Position		      [455, 250, 475, 270]
+      Position		      [465, 230, 485, 250]
       Orientation	      "left"
       NamePlacement	      "alternate"
       ShowName		      off
@@ -814,7 +826,7 @@ Model {
       BlockType		      Sum
       Name		      "Sum2"
       Ports		      [2, 1]
-      Position		      [190, 135, 210, 155]
+      Position		      [200, 115, 220, 135]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
@@ -828,10 +840,16 @@ Model {
     Block {
       BlockType		      TransferFcn
       Name		      "Transfer Fcn"
-      Position		      [355, 242, 415, 278]
+      Position		      [380, 222, 440, 258]
       Orientation	      "left"
       NamePlacement	      "alternate"
-      Denominator	      "[1 0 0]"
+      Denominator	      "[1 0 w*w]"
+    }
+    Block {
+      BlockType		      TransportDelay
+      Name		      "Transport\nDelay"
+      Position		      [200, 50, 230, 80]
+      DelayTime		      "3"
     }
     Line {
       SrcBlock		      "Gain"
@@ -901,25 +919,10 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Ramp"
+      SrcBlock		      "Sine Wave"
       SrcPort		      1
-      Points		      [45, 0; 0, 40]
-      Branch {
-	DstBlock		"Sum"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -40; 15, 0]
-	Branch {
-	  DstBlock		  "Mux1"
-	  DstPort		  1
-	}
-	Branch {
-	  Points		  [175, 0; 0, 50]
-	  DstBlock		  "Mux2"
-	  DstPort		  2
-	}
-      }
+      DstBlock		      "Transport\nDelay"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Sum"
@@ -943,7 +946,7 @@ Model {
     Line {
       SrcBlock		      "Transfer Fcn"
       SrcPort		      1
-      Points		      [0, 5]
+      Points		      [-15, 0; 0, 5]
       Branch {
 	DstBlock		"Derivative"
 	DstPort			1
@@ -967,6 +970,27 @@ Model {
       Points		      [0, 10]
       DstBlock		      "Scope"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Transport\nDelay"
+      SrcPort		      1
+      Points		      [25, 0; 0, 40]
+      Branch {
+	DstBlock		"Sum"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -40; 15, 0]
+	Branch {
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [175, 0; 0, 50]
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+      }
     }
   }
 }

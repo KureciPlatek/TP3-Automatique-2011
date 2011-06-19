@@ -38,7 +38,7 @@ h = ones(1,N)
 
 
 for h = 1:N
-    Bbf =Ba*h + [0;0;-1]
+    Bbf =Ba*h + [0;0;-1];
     
     [num1,den1] = ss2tf(Aa-Ba*Ka,Bbf,Ca,0);
     SYS2 = tf(num1,den1)
@@ -47,3 +47,5 @@ for h = 1:N
     bode(SYS2)
     grid on
 end
+legend('h = 1','h = 2','h = 3')
+title('Fonction de tranfert en boucle fermée')
